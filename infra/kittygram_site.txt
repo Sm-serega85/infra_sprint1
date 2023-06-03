@@ -1,5 +1,5 @@
 IP: 158.160.31.254;
 name_taski: https://jackolantern.ddns.net/;
 name_kittygram: https://kity2023.site/;
-login: yc-user;
-password: NRjeSf; 
+login: sm-serega85;
+password: 12345678_; 
