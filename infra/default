@@ -1,0 +1,83 @@
+# taski
+server {
+    server_name jackolantern.ddns.net;
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8000;
+    }
+                          
+    location /admin/ {
+        proxy_pass http://127.0.0.1:8000;
+    }	
+    
+    location / {
+
+        root   /var/www/taski;
+        index  index.html index.htm;
+        try_files $uri /index.html =404;
+    }
+
+    
+
+    listen 443 ssl;
+    ssl_certificate /etc/letsencrypt/live/jackolantern.ddns.net/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/jackolantern.ddns.net/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+} 
+
+server {
+    if ($host = jackolantern.ddns.net) {
+        return 301 https://$host$request_uri;
+    }
+
+    listen 80;
+    server_name 158.160.31.254 jackolantern.ddns.net;
+    return 404;
+}
+
+
+#kitty
+server {
+	
+    server_name kity2023.site;
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8080;
+    }
+
+    location /admin/ {
+        proxy_pass http://127.0.0.1:8080;
+    }
+
+    location /media/ {
+        alias /var/www/infra_sprint1/media/; 
+    }
+
+    location / {
+
+        root   /var/www/infra_sprint1;
+        index  index.html index.htm;
+        try_files $uri /index.html =404;
+    }
+
+
+
+    listen 443 ssl;
+    ssl_certificate /etc/letsencrypt/live/kity2023.site/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/kity2023.site/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; 
+
+}
+
+server {
+    if ($host = kity2023.site) {
+        return 301 https://$host$request_uri;
+    }
+
+    server_name kity2023.site;
+    listen 80;
+    return 404;
+}
